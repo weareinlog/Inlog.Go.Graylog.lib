@@ -3,6 +3,7 @@ package graylog
 import (
 	"errors"
 	"flag"
+	"fmt"
 	"io"
 	"os"
 )
@@ -22,7 +23,8 @@ func ConfigurationLog(url, company, softwareVersion, solution string) error {
 		}
 		// log to both stderr and graylog2
 		SetOutput(io.MultiWriter(os.Stderr, gelfWriter))
-		Information("Graylog configurado: '%s'", graylogAddr)
+		msg := fmt.Sprintf("Graylog configurado: %s", graylogAddr)
+		Information(msg)
 		return nil
 	} else {
 		return errors.New("Erro na url do Graylog")
