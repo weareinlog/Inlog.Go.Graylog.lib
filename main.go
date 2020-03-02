@@ -3,7 +3,8 @@ package main
 import (
 	"io"
 	"os"
-	"teste/graylog"
+
+	"github.com/weareinlog/Inlog.Go.Graylog.lib/graylog"
 )
 
 func main() {
