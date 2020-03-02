@@ -158,12 +158,6 @@ func constructMessage(p []byte, hostname string, facility string, file string, l
 	// for the short message and set the full message to the
 	// original input.  If the input has no newlines, stick the
 	// whole thing in Short.
-	short := p
-	// full := []byte("")
-	// if i := bytes.IndexRune(p, '\n'); i > 0 {
-	// 	short = p[:i]
-	// 	full = p
-	// }
 
 	if extra == nil {
 		extra = make(map[string]interface{})
@@ -178,7 +172,7 @@ func constructMessage(p []byte, hostname string, facility string, file string, l
 	index := strings.Index(string(p), "{")
 
 	if index >= 0 {
-		mensagem := string(p)[index : len(string(p))-1]
+		mensagem := string(p)[index:len(string(p))]
 
 		msgLevel, err := jsonToMessageLevel([]byte(mensagem))
 		if err == nil {
@@ -188,11 +182,18 @@ func constructMessage(p []byte, hostname string, facility string, file string, l
 		message, err = json.Marshal(msgLevel.Params)
 	}
 
+	full := message
+	short := message
+	if i := bytes.IndexRune(message, '\n'); i > 0 {
+		short = message[:i]
+		full = message
+	}
+
 	m = &Message{
 		Version:  "1.1",
 		Host:     hostname,
 		Short:    string(short),
-		Full:     string(message),
+		Full:     string(full),
 		TimeUnix: float64(time.Now().UnixNano()) / float64(time.Second),
 		Level:    level, // info
 		Facility: facility,
