@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -172,12 +173,20 @@ func constructMessage(p []byte, hostname string, facility string, file string, l
 	extra["_line"] = line
 
 	var level int32 = int32(LOG_INFO)
-	msgLevel, err := jsonToMessageLevel(p)
-	if err == nil {
-		level = int32(msgLevel.Level)
-	}
 
-	message, _ := json.Marshal(msgLevel.Params)
+	message := p
+	index := strings.Index(string(p), "{")
+
+	if index >= 0 {
+		mensagem := string(p)[index : len(string(p))-1]
+
+		msgLevel, err := jsonToMessageLevel([]byte(mensagem))
+		if err == nil {
+			level = int32(msgLevel.Level)
+		}
+
+		message, err = json.Marshal(msgLevel.Params)
+	}
 
 	m = &Message{
 		Version:  "1.1",
