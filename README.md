@@ -49,3 +49,43 @@ func main() {
     COMPANY: "INLOG" # nome do cliente
     ENVIRONMENT: "development" # ambiente publicado [development | staging | production]
 ```
+
+## Exemplo de Uso
+
+```bash
+package main
+
+import (
+	"os"
+
+	"github.com/weareinlog/Inlog.Go.Graylog.lib/graylog"
+)
+
+//VERSION versão
+const VERSION string = "0.1.0"
+
+func init() {
+	os.Setenv("VERSION", VERSION)
+	os.Setenv("SOLUTION", "TESTE")
+}
+
+func configurationGraylog() {
+	url := os.Getenv("URL_GRAYLOG")
+	company := os.Getenv("COMPANY")
+	version := os.Getenv("VERSION")
+	solution := os.Getenv("SOLUTION")
+	graylog.ConfigurationLog(url, company, version, solution)
+}
+
+func main() {
+	configurationGraylog()
+	graylog.Emergency("Emergency")
+	graylog.Alert("Alert")
+	graylog.Critical("Critical")
+	graylog.Error("Error")
+	graylog.Warning("Warning")
+	graylog.Notice("Notice")
+	graylog.Information("Information")
+	graylog.Debug("Debug")
+}
+```
