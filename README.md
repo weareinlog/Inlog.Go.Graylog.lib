@@ -30,3 +30,22 @@ func main() {
     configurationGraylog()
     ...
 ```
+## Debug
+- Adicionar no arquivo launch.json adicionar as variáveis de ambiente
+
+```bash
+"env": {
+    "URL_GRAYLOG": "graylog.inlog.in:5144", // url do graylog porta udp
+    "COMPANY": "INLOG", // nome do cliente
+    "ENVIRONMENT": "development" // ambiente publicado [development | staging | production]
+}
+```
+## Docker
+- No arquivo docker-compose.yml adicionar as variáveis de ambiente
+
+```bash
+ environment:
+    URL_GRAYLOG: "graylog.inlog.in:5144" # url do graylog porta udp
+    COMPANY: "INLOG" # nome do cliente
+    ENVIRONMENT: "development" # ambiente publicado [development | staging | production]
+```
