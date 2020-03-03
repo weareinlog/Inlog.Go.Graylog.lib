@@ -62,6 +62,17 @@ const (
 	LOG_DEBUG   Level = 7
 )
 
+var levelDescription map[Level]interface{} = map[Level]interface{}{
+	LOG_EMERG:   "EMERG",
+	LOG_ALERT:   "ALERT",
+	LOG_CRIT:    "CRIT",
+	LOG_ERR:     "ERR",
+	LOG_WARNING: "WARNING",
+	LOG_NOTICE:  "NOTICE",
+	LOG_INFO:    "INFO",
+	LOG_DEBUG:   "DEBUG",
+}
+
 func (m *Message) MarshalJSONBuf(buf *bytes.Buffer) error {
 	b, err := json.Marshal(m)
 	if err != nil {
@@ -166,7 +177,8 @@ func constructMessage(p []byte, hostname string, facility string, file string, l
 	extra["_file"] = file
 	extra["_line"] = line
 
-	var level int32 = int32(LOG_INFO)
+	level := int32(LOG_INFO)
+	extra["StringLeval"] = levelDescription[LOG_INFO]
 
 	message := p
 	index := strings.Index(string(p), "{")
@@ -177,6 +189,8 @@ func constructMessage(p []byte, hostname string, facility string, file string, l
 		msgLevel, err := jsonToMessageLevel([]byte(mensagem))
 		if err == nil {
 			level = int32(msgLevel.Level)
+			extra["StringLeval"] = levelDescription[msgLevel.Level]
+
 		}
 
 		message, err = json.Marshal(msgLevel.Params)
