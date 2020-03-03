@@ -31,7 +31,7 @@ func main() {
     ...
 ```
 ## Debug
-- Adicionar no arquivo launch.json adicionar as variáveis de ambiente
+- No arquivo launch.json adicionar as variáveis de ambiente
 
 ```bash
 "env": {
