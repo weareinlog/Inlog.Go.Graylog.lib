@@ -9,14 +9,15 @@ import (
 )
 
 //ConfigurationLog configuração do Graylog
-func ConfigurationLog(url, company, softwareVersion, solution string) error {
+func ConfigurationLog(url, company, softwareVersion, solution string, environment string) error {
 	var graylogAddr string
 	flag.StringVar(&graylogAddr, "GrayLog", url, "")
 	if graylogAddr != "" {
 		gelfWriter, err := NewUDPWriter(graylogAddr, map[string]interface{}{
-			"Company":  company,
-			"_version": softwareVersion,
-			"Solution": solution,
+			"Company":     company,
+			"_version":    softwareVersion,
+			"Solution":    solution,
+			"Environment": environment,
 		})
 		if err != nil {
 			return err

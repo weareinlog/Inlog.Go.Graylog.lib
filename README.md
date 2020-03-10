@@ -12,18 +12,20 @@ import "github.com/weareinlog/Inlog.Go.Graylog.lib/graylog"
 
 //VERSION versão do sistema
 const VERSION string = "0.2.0"
+const SOLUTION string = "Inlog.Go.Services.Bus.AreaAlarme.Back"
 
 func init() {
 	os.Setenv("VERSION", VERSION)
-	os.Setenv("SOLUTION", "Inlog.Go.Services.Bus.AreaAlarme.Back")
+	os.Setenv("SOLUTION", SOLUTION)
 }
 
 func configurationGraylog() {
 	url := os.Getenv("URL_GRAYLOG")
-	company := os.Getenv("COMPANY")
+	company := os.Getenv("COMPANY_GRAYLOG")
 	version := os.Getenv("VERSION")
 	solution := os.Getenv("SOLUTION")
-	graylog.ConfigurationLog(url, company, version, solution)
+	environment := os.Getenv("ENVIRONMENT_GRAYLOG")
+	graylog.ConfigurationLog(url, company, version, solution, environment)
 }
 
 func main() {
@@ -36,8 +38,8 @@ func main() {
 ```bash
 "env": {
     "URL_GRAYLOG": "graylog.inlog.in:5144", // url do graylog porta udp
-    "COMPANY": "INLOG", // nome do cliente
-    "ENVIRONMENT": "development" // ambiente publicado [development | staging | production]
+    "COMPANY_GRAYLOG": "INLOG", // nome do cliente
+    "ENVIRONMENT_GRAYLOG": "development" // ambiente publicado [development | staging | production]
 }
 ```
 ## Docker
@@ -46,8 +48,8 @@ func main() {
 ```bash
  environment:
     URL_GRAYLOG: "graylog.inlog.in:5144" # url do graylog porta udp
-    COMPANY: "INLOG" # nome do cliente
-    ENVIRONMENT: "development" # ambiente publicado [development | staging | production]
+    COMPANY_GRAYLOG: "INLOG" # nome do cliente
+    ENVIRONMENT_GRAYLOG: "development" # ambiente publicado [development | staging | production]
 ```
 
 ## Exemplo de Uso
@@ -63,18 +65,20 @@ import (
 
 //VERSION versão
 const VERSION string = "0.1.0"
+const SOLUTION string = "Teste"
 
 func init() {
 	os.Setenv("VERSION", VERSION)
-	os.Setenv("SOLUTION", "TESTE")
+	os.Setenv("SOLUTION", SOLUTION)
 }
 
 func configurationGraylog() {
 	url := os.Getenv("URL_GRAYLOG")
-	company := os.Getenv("COMPANY")
+	company := os.Getenv("COMPANY_GRAYLOG")
 	version := os.Getenv("VERSION")
 	solution := os.Getenv("SOLUTION")
-	graylog.ConfigurationLog(url, company, version, solution)
+	environment := os.Getenv("ENVIRONMENT_GRAYLOG")
+	graylog.ConfigurationLog(url, company, version, solution, environment)
 }
 
 func main() {
