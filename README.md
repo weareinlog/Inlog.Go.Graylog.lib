@@ -1,14 +1,14 @@
-# Inlog.Go.Graylog.lib
+# Inlog.Graylog.Lib
 
 # Graylog Lib
 - .lib para integração com o Graylog
 
 # Procedimentos
-- rodar o comando: go get github.com/weareinlog/Inlog.Go.Graylog.lib
+- rodar o comando: go get github.com/weareinlog/Inlog.Graylog.Lib
 - Adicionar o seguinte código no arquivo main.go
 
 ```bash
-import "github.com/weareinlog/Inlog.Go.Graylog.lib/graylog"
+import "github.com/weareinlog/Inlog.Graylog.Lib/graylog"
 
 //VERSION versão do sistema
 const VERSION string = "0.2.0"
@@ -60,7 +60,7 @@ package main
 import (
 	"os"
 
-	"github.com/weareinlog/Inlog.Go.Graylog.lib/graylog"
+	"github.com/weareinlog/Inlog.Graylog.Lib/graylog"
 )
 
 //VERSION versão
