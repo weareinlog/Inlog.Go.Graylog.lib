@@ -27,7 +27,7 @@ func ConfigurationLog(url, company, softwareVersion, solution string, environmen
 		msg := fmt.Sprintf("Graylog configurado: %s", graylogAddr)
 		Information(msg)
 		return nil
-	} else {
-		return errors.New("Erro na url do Graylog")
 	}
+
+	return errors.New("Erro na url do Graylog")
 }

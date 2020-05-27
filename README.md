@@ -11,7 +11,7 @@
 import "github.com/weareinlog/Inlog.Graylog.Lib/graylog"
 
 //VERSION versão do sistema
-const VERSION string = "0.2.0"
+const VERSION string = "0.2.1"
 const SOLUTION string = "Inlog.Go.Services.Bus.AreaAlarme.Back"
 
 func init() {
