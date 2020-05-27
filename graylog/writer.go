@@ -8,13 +8,14 @@ import (
 	"net"
 )
 
+// Writer is a interface
 type Writer interface {
 	Close() error
 	Write([]byte) (int, error)
 	WriteMessage(*Message) error
 }
 
-// Writer implements io.Writer and is used to send both discrete
+// GelfWriter Writer implements io.Writer and is used to send both discrete
 // messages to a graylog2 server, or data from a stream-oriented
 // interface (like the functions in log).
 type GelfWriter struct {

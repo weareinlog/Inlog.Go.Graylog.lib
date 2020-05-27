@@ -14,13 +14,14 @@ import (
 	"sync"
 )
 
+// UDPWriter is a struct
 type UDPWriter struct {
 	GelfWriter
 	CompressionLevel int // one of the consts from compress/flate
 	CompressionType  CompressType
 }
 
-// What compression type the writer should use when sending messages
+// CompressType What compression type the writer should use when sending messages
 // to the graylog2 server
 type CompressType int
 
@@ -56,7 +57,7 @@ func numChunks(b []byte) int {
 	return len(b)/chunkedDataLen + 1
 }
 
-// New returns a new GELF Writer.  This writer can be used to send the
+// NewUDPWriter returns a new GELF Writer.  This writer can be used to send the
 // output of the standard Go log functions to a central GELF server by
 // passing it to log.SetOutput()
 func NewUDPWriter(addr string, extra map[string]interface{}) (*UDPWriter, error) {
@@ -92,8 +93,8 @@ func (w *GelfWriter) writeChunked(zBytes []byte) (err error) {
 	}
 	nChunks := uint8(nChunksI)
 	// use urandom to get a unique message id
-	msgId := make([]byte, 8)
-	n, err := io.ReadFull(rand.Reader, msgId)
+	msgID := make([]byte, 8)
+	n, err := io.ReadFull(rand.Reader, msgID)
 	if err != nil || n != 8 {
 		return fmt.Errorf("rand.Reader: %d/%s", n, err)
 	}
@@ -105,7 +106,7 @@ func (w *GelfWriter) writeChunked(zBytes []byte) (err error) {
 		// host/network byte order, because the spec only
 		// deals in individual bytes.
 		buf.Write(magicChunked) //magic
-		buf.Write(msgId)
+		buf.Write(msgID)
 		buf.WriteByte(i)
 		buf.WriteByte(nChunks)
 		// slice out our chunk from zBytes

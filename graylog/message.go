@@ -73,6 +73,7 @@ var levelDescription map[Level]interface{} = map[Level]interface{}{
 	LOG_DEBUG:   "DEBUG",
 }
 
+//MarshalJSONBuf is a function to parse json
 func (m *Message) MarshalJSONBuf(buf *bytes.Buffer) error {
 	b, err := json.Marshal(m)
 	if err != nil {
@@ -112,6 +113,7 @@ func (m *Message) MarshalJSONBuf(buf *bytes.Buffer) error {
 	return buf.WriteByte('}')
 }
 
+// UnmarshalJSON is a function to parse data to json
 func (m *Message) UnmarshalJSON(data []byte) error {
 	i := make(map[string]interface{}, 16)
 	if err := json.Unmarshal(data, &i); err != nil {
